@@ -4,9 +4,5 @@
       "api/send-message.js": {
         "runtime": "nodejs18.x"
       }
-    },
-    "env": {
-      "TEXTMEBOT_API_KEY": "@textmebot-api-key",
-      "TEXTMEBOT_INSTANCE": "@textmebot-instance"
-    }
   }
+}
