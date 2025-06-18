@@ -1,0 +1,17 @@
+{
+    "name": "whatsapp-api",
+    "version": "1.0.0",
+    "description": "WhatsApp API for ESP32 Pest Control System",
+    "main": "index.js",
+    "scripts": {
+      "dev": "vercel dev",
+      "build": "vercel build",
+      "start": "vercel start"
+    },
+    "dependencies": {
+      "node-fetch": "^3.3.2"
+    },
+    "engines": {
+      "node": ">=18.0.0"
+    }
+  }
