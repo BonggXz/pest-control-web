@@ -1,0 +1,38 @@
+{
+  "settings": {
+    "mode": "manual",
+    "uv": {
+      "schedule": {
+        "enabled": false,
+        "start": "20:00",
+        "end": "06:00",
+        "days": [1, 1, 1, 1, 1, 1, 1]
+      }
+    },
+    "sound": {
+      "schedule": {
+        "enabled": false,
+        "start": "19:00",
+        "end": "07:00",
+        "days": [1, 1, 1, 1, 1, 1, 1]
+      }
+    },
+    "notification": {
+      "enabled": false,
+      "number": "",
+      "message": "🦗 *Pengusir Hama Aktif*\n\nSistem pengusir hama telah diaktifkan secara otomatis.\n\n⏰ Waktu: {waktu}\n🔦 UV Light: {status_uv}\n🔊 Ultrasonik: {status_sound}\n\nSemoga area Anda terlindungi dari hama! 🛡️",
+      "pesticideSchedule": "",
+      "pesticideMessage": "🌾 *Reminder Penyiraman Pestisida*\n\nSaatnya melakukan penyiraman pestisida!\n\n📅 Tanggal: {tanggal}\n⏰ Waktu: {waktu}\n\nJangan lupa:\n• Gunakan masker dan sarung tangan\n• Pastikan cuaca tidak berangin\n• Semprot merata ke seluruh tanaman\n\nSelamat bekerja! 💪"
+    }
+  },
+  "status": {
+    "uvActive": false,
+    "soundActive": false,
+    "online": false,
+    "lastSeen": ""
+  },
+  "control": {
+    "uv": false,
+    "sound": false
+  }
+}
