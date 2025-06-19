@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,50 +7,52 @@
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 text-gray-800 p-4 font-sans">
-  <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-md p-6">
-    <h1 class="text-2xl font-semibold mb-4 text-center">Kontrol Alat Pengusir Hama</h1>
+<body class="bg-gradient-to-b from-gray-100 to-gray-200 text-gray-800 p-4 font-sans min-h-screen">
+  <div class="max-w-xl mx-auto bg-white rounded-3xl shadow-xl p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center text-purple-700"><i class="fas fa-bug"></i> Kontrol Alat Pengusir Hama</h1>
 
     <div class="mb-6">
-      <label class="block mb-1 font-medium">Mode Operasi</label>
-      <select id="mode" onchange="setMode()" class="w-full border border-gray-300 p-2 rounded">
+      <label class="block mb-2 font-semibold text-gray-700"><i class="fas fa-sliders-h"></i> Mode Operasi</label>
+      <select id="mode" onchange="setMode()" class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
         <option value="manual">Manual</option>
         <option value="auto">Otomatis</option>
       </select>
     </div>
 
     <div class="grid grid-cols-2 gap-4 mb-6">
-      <button onclick="toggle('uv_light')" class="bg-blue-500 text-white p-2 rounded-xl">Toggle UV</button>
-      <button onclick="toggle('ultrasonic')" class="bg-green-500 text-white p-2 rounded-xl">Toggle Ultrasonik</button>
+      <button onclick="toggle('uv_light')" class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-xl shadow"><i class="fas fa-lightbulb"></i> Toggle UV</button>
+      <button onclick="toggle('ultrasonic')" class="bg-green-500 hover:bg-green-600 text-white p-3 rounded-xl shadow"><i class="fas fa-volume-up"></i> Toggle Ultrasonik</button>
     </div>
 
     <div class="mb-6">
-      <h2 class="text-lg font-semibold mb-2">Jadwal Otomatis</h2>
-      <label class="block text-sm">UV ON - OFF</label>
-      <div class="flex gap-2 mb-2">
-        <input type="time" id="uv_on" class="flex-1 border p-2 rounded">
-        <input type="time" id="uv_off" class="flex-1 border p-2 rounded">
+      <h2 class="text-xl font-semibold mb-3 text-gray-700"><i class="fas fa-clock"></i> Jadwal Otomatis</h2>
+      <label class="block text-sm font-medium">UV ON - OFF</label>
+      <div class="flex gap-2 mb-3">
+        <input type="time" id="uv_on" class="flex-1 border p-2 rounded-lg">
+        <input type="time" id="uv_off" class="flex-1 border p-2 rounded-lg">
       </div>
-      <label class="block text-sm">Ultrasonik ON - OFF</label>
-      <div class="flex gap-2 mb-2">
-        <input type="time" id="ultra_on" class="flex-1 border p-2 rounded">
-        <input type="time" id="ultra_off" class="flex-1 border p-2 rounded">
+      <label class="block text-sm font-medium">Ultrasonik ON - OFF</label>
+      <div class="flex gap-2 mb-3">
+        <input type="time" id="ultra_on" class="flex-1 border p-2 rounded-lg">
+        <input type="time" id="ultra_off" class="flex-1 border p-2 rounded-lg">
       </div>
-      <button onclick="saveSchedule()" class="bg-yellow-500 text-white px-4 py-2 rounded-xl w-full">Simpan Jadwal</button>
+      <button onclick="saveSchedule()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-xl w-full font-medium shadow"><i class="fas fa-save"></i> Simpan Jadwal</button>
     </div>
 
     <div class="mb-6">
-      <h2 class="text-lg font-semibold mb-2">Jadwal WhatsApp</h2>
-      <input type="date" id="tanggal" class="w-full mb-2 border p-2 rounded">
-      <input type="text" id="pesan" placeholder="Pesan ke petani" class="w-full mb-2 border p-2 rounded">
-      <button onclick="setWA()" class="bg-purple-500 text-white px-4 py-2 rounded-xl w-full">Atur Pesan WA</button>
+      <h2 class="text-xl font-semibold mb-3 text-gray-700"><i class="fab fa-whatsapp"></i> Jadwal WhatsApp</h2>
+      <input type="date" id="tanggal" class="w-full mb-2 border p-2 rounded-lg">
+      <input type="text" id="pesan" placeholder="Pesan ke petani" class="w-full mb-2 border p-2 rounded-lg">
+      <input type="text" id="nomor" placeholder="Nomor WA (628xxxx)" class="w-full mb-3 border p-2 rounded-lg">
+      <button onclick="setWA()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl w-full font-medium shadow"><i class="fas fa-paper-plane"></i> Atur Pesan WA</button>
     </div>
 
-    <div class="text-sm text-gray-600">
-      <p id="statusUV">Status UV: -</p>
-      <p id="statusUltrasound">Status Ultrasonik: -</p>
-      <p id="statusMode">Mode: -</p>
+    <div class="text-sm text-gray-600 space-y-1">
+      <p id="statusUV"><i class="fas fa-lightbulb"></i> Status UV: -</p>
+      <p id="statusUltrasound"><i class="fas fa-volume-up"></i> Status Ultrasonik: -</p>
+      <p id="statusMode"><i class="fas fa-sliders-h"></i> Mode: -</p>
     </div>
   </div>
 
@@ -98,7 +100,8 @@
   function setWA() {
     const tanggal = document.getElementById("tanggal").value;
     const pesan = document.getElementById("pesan").value;
-    set(ref(db, "schedule/wa"), { date: tanggal, message: pesan });
+    const nomor = document.getElementById("nomor").value;
+    set(ref(db, "schedule/wa"), { date: tanggal, message: pesan, phone: nomor });
   }
 
   // Realtime status listener
