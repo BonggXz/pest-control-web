@@ -8,7 +8,7 @@ const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 
 if (!admin.apps.length) {
   admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert("AIzaSyBPMUPdJb2JHKdACVpIhQf3CyGMzeE6mVs"),
   databaseURL: "https://pest-control-system-393aa-default-rtdb.asia-southeast1.firebasedatabase.app"
 });
 }
