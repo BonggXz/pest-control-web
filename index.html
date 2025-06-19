@@ -1,120 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kontrol Alat Pengusir Hama</title>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengusir Hama</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 </head>
-<body class="bg-gradient-to-b from-gray-100 to-gray-200 text-gray-800 p-4 font-sans min-h-screen">
+<body class="bg-gray-100 text-gray-800 p-4 font-sans">
   <div class="max-w-xl mx-auto bg-white rounded-3xl shadow-xl p-6">
-    <h1 class="text-3xl font-bold mb-6 text-center text-purple-700"><i class="fas fa-bug"></i> Kontrol Alat Pengusir Hama</h1>
+    <h1 class="text-2xl font-bold text-center text-purple-700 mb-4">
+      <i class="fas fa-bug"></i> Kontrol Alat Pengusir Hama
+    </h1>
 
-    <div class="mb-6">
-      <label class="block mb-2 font-semibold text-gray-700"><i class="fas fa-sliders-h"></i> Mode Operasi</label>
-      <select id="mode" onchange="setMode()" class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+    <div class="mb-4">
+      <label class="block font-medium mb-1">Mode Operasi</label>
+      <select id="mode" onchange="setMode()" class="w-full border border-gray-300 p-2 rounded">
         <option value="manual">Manual</option>
         <option value="auto">Otomatis</option>
       </select>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <button onclick="toggle('uv_light')" class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-xl shadow"><i class="fas fa-lightbulb"></i> Toggle UV</button>
-      <button onclick="toggle('ultrasonic')" class="bg-green-500 hover:bg-green-600 text-white p-3 rounded-xl shadow"><i class="fas fa-volume-up"></i> Toggle Ultrasonik</button>
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <button onclick="toggle('uv_light')" class="bg-blue-500 text-white p-2 rounded-xl">
+        <i class="fas fa-lightbulb"></i> Toggle UV
+      </button>
+      <button onclick="toggle('ultrasonic')" class="bg-green-500 text-white p-2 rounded-xl">
+        <i class="fas fa-volume-up"></i> Toggle Ultrasonik
+      </button>
     </div>
 
-    <div class="mb-6">
-      <h2 class="text-xl font-semibold mb-3 text-gray-700"><i class="fas fa-clock"></i> Jadwal Otomatis</h2>
-      <label class="block text-sm font-medium">UV ON - OFF</label>
-      <div class="flex gap-2 mb-3">
-        <input type="time" id="uv_on" class="flex-1 border p-2 rounded-lg">
-        <input type="time" id="uv_off" class="flex-1 border p-2 rounded-lg">
+    <div class="mb-4">
+      <h2 class="text-lg font-semibold mb-2"><i class="fas fa-clock"></i> Jadwal Otomatis</h2>
+      <div class="flex gap-2 mb-2">
+        <input type="time" id="uv_on" class="border p-2 rounded w-full">
+        <input type="time" id="uv_off" class="border p-2 rounded w-full">
       </div>
-      <label class="block text-sm font-medium">Ultrasonik ON - OFF</label>
-      <div class="flex gap-2 mb-3">
-        <input type="time" id="ultra_on" class="flex-1 border p-2 rounded-lg">
-        <input type="time" id="ultra_off" class="flex-1 border p-2 rounded-lg">
+      <div class="flex gap-2 mb-2">
+        <input type="time" id="ultra_on" class="border p-2 rounded w-full">
+        <input type="time" id="ultra_off" class="border p-2 rounded w-full">
       </div>
-      <button onclick="saveSchedule()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-xl w-full font-medium shadow"><i class="fas fa-save"></i> Simpan Jadwal</button>
+      <button onclick="saveSchedule()" class="bg-yellow-500 text-white w-full p-2 rounded-xl">
+        <i class="fas fa-save"></i> Simpan Jadwal
+      </button>
     </div>
 
-    <div class="mb-6">
-      <h2 class="text-xl font-semibold mb-3 text-gray-700"><i class="fab fa-whatsapp"></i> Jadwal WhatsApp</h2>
-      <input type="date" id="tanggal" class="w-full mb-2 border p-2 rounded-lg">
-      <input type="text" id="pesan" placeholder="Pesan ke petani" class="w-full mb-2 border p-2 rounded-lg">
-      <input type="text" id="nomor" placeholder="Nomor WA (628xxxx)" class="w-full mb-3 border p-2 rounded-lg">
-      <button onclick="setWA()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl w-full font-medium shadow"><i class="fas fa-paper-plane"></i> Atur Pesan WA</button>
+    <div class="mb-4">
+      <h2 class="text-lg font-semibold mb-2"><i class="fab fa-whatsapp"></i> Jadwal WA</h2>
+      <input type="date" id="tanggal" class="border p-2 rounded w-full mb-2">
+      <input type="text" id="pesan" placeholder="Pesan ke petani" class="border p-2 rounded w-full mb-2">
+      <input type="text" id="nomor" placeholder="Nomor WA (628xxxx)" class="border p-2 rounded w-full mb-2">
+      <button onclick="setWA()" class="bg-purple-600 text-white w-full p-2 rounded-xl">
+        <i class="fas fa-paper-plane"></i> Atur Pesan WA
+      </button>
     </div>
 
-    <div class="text-sm text-gray-600 space-y-1">
-      <p id="statusUV"><i class="fas fa-lightbulb"></i> Status UV: -</p>
-      <p id="statusUltrasound"><i class="fas fa-volume-up"></i> Status Ultrasonik: -</p>
-      <p id="statusMode"><i class="fas fa-sliders-h"></i> Mode: -</p>
+    <div class="text-sm text-gray-600">
+      <p id="statusUV">Status UV: -</p>
+      <p id="statusUltrasound">Status Ultrasonik: -</p>
+      <p id="statusMode">Mode: -</p>
     </div>
   </div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js";
-  import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-database.js";
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBPMUPdJb2JHKdACVpIhQf3CyGMzeE6mVs",
+      authDomain: "pest-control-system-393aa.firebaseapp.com",
+      databaseURL: "https://pest-control-system-393aa-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "pest-control-system-393aa",
+      storageBucket: "pest-control-system-393aa.appspot.com",
+      messagingSenderId: "579240324253",
+      appId: "1:579240324253:web:42de253d48aed3d995b874"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBPMUPdJb2JHKdACVpIhQf3CyGMzeE6mVs",
-    authDomain: "pest-control-system-393aa.firebaseapp.com",
-    databaseURL: "https://pest-control-system-393aa-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "pest-control-system-393aa",
-    storageBucket: "pest-control-system-393aa.firebasestorage.app",
-    messagingSenderId: "579240324253",
-    appId: "1:579240324253:web:42de253d48aed3d995b874"
-  };
+    function toggle(device) {
+      const ref = db.ref(`device/${device}`);
+      ref.once("value").then(snapshot => {
+        const current = snapshot.val();
+        ref.set(current === "on" ? "off" : "on");
+      });
+    }
 
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+    function setMode() {
+      const mode = document.getElementById("mode").value;
+      db.ref("device/mode").set(mode);
+    }
 
-  function toggle(device) {
-    const deviceRef = ref(db, `device/${device}`);
-    get(deviceRef).then(snapshot => {
-      const current = snapshot.val();
-      set(deviceRef, current === 'on' ? 'off' : 'on');
+    function saveSchedule() {
+      db.ref("auto_schedule").set({
+        uv_light: {
+          on_time: document.getElementById("uv_on").value,
+          off_time: document.getElementById("uv_off").value
+        },
+        ultrasonic: {
+          on_time: document.getElementById("ultra_on").value,
+          off_time: document.getElementById("ultra_off").value
+        }
+      });
+    }
+
+    function setWA() {
+      db.ref("schedule/wa").set({
+        date: document.getElementById("tanggal").value,
+        message: document.getElementById("pesan").value,
+        phone: document.getElementById("nomor").value
+      });
+    }
+
+    // Realtime listeners
+    db.ref("device/uv_light").on("value", snap => {
+      document.getElementById("statusUV").textContent = "Status UV: " + snap.val();
     });
-  }
-
-  function setMode() {
-    const mode = document.getElementById("mode").value;
-    set(ref(db, "device/mode"), mode);
-  }
-
-  function saveSchedule() {
-    const uv_on = document.getElementById("uv_on").value;
-    const uv_off = document.getElementById("uv_off").value;
-    const ultra_on = document.getElementById("ultra_on").value;
-    const ultra_off = document.getElementById("ultra_off").value;
-    set(ref(db, "auto_schedule"), {
-      uv_light: { on_time: uv_on, off_time: uv_off },
-      ultrasonic: { on_time: ultra_on, off_time: ultra_off }
+    db.ref("device/ultrasonic").on("value", snap => {
+      document.getElementById("statusUltrasound").textContent = "Status Ultrasonik: " + snap.val();
     });
-  }
-
-  function setWA() {
-    const tanggal = document.getElementById("tanggal").value;
-    const pesan = document.getElementById("pesan").value;
-    const nomor = document.getElementById("nomor").value;
-    set(ref(db, "schedule/wa"), { date: tanggal, message: pesan, phone: nomor });
-  }
-
-  // Realtime status listener
-  onValue(ref(db, 'device/uv_light'), (snapshot) => {
-    document.getElementById('statusUV').textContent = "Status UV: " + snapshot.val();
-  });
-  onValue(ref(db, 'device/ultrasonic'), (snapshot) => {
-    document.getElementById('statusUltrasound').textContent = "Status Ultrasonik: " + snapshot.val();
-  });
-  onValue(ref(db, 'device/mode'), (snapshot) => {
-    document.getElementById('statusMode').textContent = "Mode: " + snapshot.val();
-    document.getElementById('mode').value = snapshot.val();
-  });
-</script>
+    db.ref("device/mode").on("value", snap => {
+      const mode = snap.val();
+      document.getElementById("statusMode").textContent = "Mode: " + mode;
+      document.getElementById("mode").value = mode;
+    });
+  </script>
 </body>
 </html>
