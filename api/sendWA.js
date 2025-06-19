@@ -8,9 +8,9 @@ const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://yourproject.firebaseio.com"
-  });
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://pest-control-system-393aa-default-rtdb.asia-southeast1.firebasedatabase.app"
+});
 }
 
 export default async function handler(req, res) {
